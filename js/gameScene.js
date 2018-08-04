@@ -1,3 +1,18 @@
+// Phaser Documentation:
+// https://rexrainbow.github.io/phaser3-rex-notes/docs/site/index.html
+
+
+// https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+let getParameterByName = (name) => {
+    let url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+};
+
 let gameScene = new Phaser.Scene('Game');
 
 // Runs first and is used to set all the variables
@@ -30,8 +45,20 @@ let config = {
 	type: Phaser.AUTO, // Will use webgl if avialable overwise it will use the canvas
 	width: 640,
 	height: 360,
-	scene: gameScene
+	scene: gameScene, // default scene
+	parent: 'game-canvas', // wrapper for canvas so you control where it is
+	pixelArt: false,
+	physics: {
+		default: 'arcade',
+		arcade: {
+			gravity: {
+				y: 1000 // default gravity
+			},
+			debug: getParameterByName('debug') == '1'
+		}
+	}
 };
 
 // create an new game and pass configuration to it
 let game = new Phaser.Game(config);
+
