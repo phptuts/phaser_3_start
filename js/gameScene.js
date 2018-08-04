@@ -52,7 +52,7 @@ let config = {
 			gravity: {
 				y: 1000 // default gravity
 			},
-			debug: getParameterByName('debug') == '1'
+			debug: getParameterByName('debug') == '1' // if debug=1 in the query it will use debug mode
 		}
 	}
 };
